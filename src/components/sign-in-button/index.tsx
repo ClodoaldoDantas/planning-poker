@@ -2,11 +2,15 @@
 
 import { useRouter } from 'next/navigation'
 import { Button } from '../button'
+import { useAuth } from '@/contexts/AuthContext'
 
 export function SignInButton() {
   const router = useRouter()
+  const { signInWithGoogle } = useAuth()
 
-  function handleSignIn() {
+  async function handleSignIn() {
+    await signInWithGoogle()
+
     router.push('/lobby')
   }
 

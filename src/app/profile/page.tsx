@@ -1,10 +1,11 @@
+import Link from 'next/link'
+import { ChevronRight, Heart, Tv2 } from 'lucide-react'
 import { Center } from '@/components/center'
-import { Profile } from '@/components/profile'
 import { BackButton } from '@/components/back-button'
+import { SignOutButton } from '@/components/sign-out-button'
+import { ProfileHeader } from './profile-header'
 
 import styles from './page.module.scss'
-import Link from 'next/link'
-import { ChevronRight, Heart, LogOut, Tv2 } from 'lucide-react'
 
 export default function ProfilePage() {
   return (
@@ -12,14 +13,7 @@ export default function ProfilePage() {
       <section className={styles.profilePage}>
         <BackButton href="/lobby">Voltar para o lobby</BackButton>
 
-        <header className={styles.profilePageHeader}>
-          <div className={styles.profilePageHeaderContent}>
-            <h2>Taylor Owens</h2>
-            <p>taylor@example.com</p>
-          </div>
-
-          <Profile />
-        </header>
+        <ProfileHeader />
 
         <nav className={styles.profilePageMenu}>
           <Link href="/profile">
@@ -34,10 +28,7 @@ export default function ProfilePage() {
             <ChevronRight className={styles.arrow} size={20} />
           </Link>
 
-          <button type="button">
-            <LogOut size={20} />
-            Sair da Conta
-          </button>
+          <SignOutButton />
         </nav>
       </section>
     </Center>
