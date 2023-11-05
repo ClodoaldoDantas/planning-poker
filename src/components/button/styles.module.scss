@@ -36,4 +36,12 @@
       background-color: var(--green-700);
     }
   }
+
+  &.dark {
+    background-color: var(--gray-600);
+
+    &:hover {
+      background-color: var(--gray-700);
+    }
+  }
 }

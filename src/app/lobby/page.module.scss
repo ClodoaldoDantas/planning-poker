@@ -1,0 +1,23 @@
+.lobbyPage {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.card,
+.cardActions {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  gap: 1.25rem;
+}
+
+.cardActions {
+  gap: 0.5rem;
+}

@@ -1,6 +1,6 @@
 import { Center } from '@/components/center'
 import { Header } from '@/components/header'
-import { Auth } from '@/components/auth'
+import { SignInButton } from '@/components/sign-in-button'
 
 import styles from './page.module.scss'
 
@@ -9,7 +9,7 @@ export default function SignInPage() {
     <Center>
       <section className={styles.signInPage}>
         <Header />
-        <Auth />
+        <SignInButton />
       </section>
     </Center>
   )

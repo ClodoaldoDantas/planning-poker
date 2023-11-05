@@ -3,7 +3,7 @@ import styles from './styles.module.scss'
 import classNames from 'classnames'
 
 type ButtonProps = ComponentProps<'button'> & {
-  variant?: 'primary' | 'secondary' | 'success'
+  variant?: 'primary' | 'secondary' | 'success' | 'dark'
 }
 
 export function Button({ variant = 'primary', ...props }: ButtonProps) {
