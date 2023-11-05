@@ -1,22 +1,21 @@
 import { Center } from '@/components/center'
 import { Header } from '@/components/header'
-import { CreateChannel } from './create-channel'
-import { BackButton } from '@/components/back-button'
 import { Profile } from '@/components/profile'
+import { BackButton } from '@/components/back-button'
 
 import styles from './page.module.scss'
 
-export default function NewChannelPage() {
+export default function ProfilePage() {
   return (
     <Center>
-      <section className={styles.newChannelPage}>
+      <section className={styles.profilePage}>
         <BackButton href="/lobby">Voltar para o lobby</BackButton>
 
         <Header>
           <Profile />
         </Header>
 
-        <CreateChannel />
+        <div>Tela de perfil</div>
       </section>
     </Center>
   )
