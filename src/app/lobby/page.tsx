@@ -1,4 +1,4 @@
-import { Bot, Tv2 } from 'lucide-react'
+import { Bot } from 'lucide-react'
 import { Center } from '@/components/center'
 import { Header } from '@/components/header'
 import { Button } from '@/components/button'
@@ -17,11 +17,6 @@ export default function LobbyPage() {
             <Button variant="success">
               <Bot size={24} />
               Criar um novo canal
-            </Button>
-
-            <Button variant="dark">
-              <Tv2 size={24} />
-              Acessar meus canais
             </Button>
           </div>
 

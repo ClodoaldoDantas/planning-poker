@@ -1,12 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .input {
+  width: 100%;
   padding: 0.875rem 1rem;
   border-radius: 8px;
 
   border: 1px solid var(--gray-300);
   background-color: var(--white);
   color: var(--gray-800);
+  outline: 0;
+
+  &:focus {
+    border-color: var(--blue-500);
+  }
+
+  &.invalid {
+    border-color: var(--red-500);
+  }
 
   &::placeholder {
     color: var(--gray-400);
   }
+}
+
+.error {
+  font-size: 0.875rem;
+  color: var(--red-500);
 }
