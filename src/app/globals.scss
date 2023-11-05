@@ -47,6 +47,7 @@
 
 body {
   min-height: 100vh;
+  line-height: 1.5;
   background-color: var(--gray-50);
   color: var(--gray-600);
 }
@@ -75,4 +76,6 @@ h1,
 h2,
 h3 {
   font-weight: 700;
+  line-height: 1.2;
+  color: var(--gray-800);
 }

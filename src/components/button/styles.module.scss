@@ -1,0 +1,26 @@
+.button {
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  border: 0;
+
+  font-weight: 500;
+  color: var(--white);
+
+  transition: all 0.2s;
+
+  &.primary {
+    background-color: var(--blue-600);
+
+    &:hover {
+      background-color: var(--blue-700);
+    }
+  }
+
+  &.secondary {
+    background-color: var(--red-600);
+
+    &:hover {
+      background-color: var(--red-700);
+    }
+  }
+}
