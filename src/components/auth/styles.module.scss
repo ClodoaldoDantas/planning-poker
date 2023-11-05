@@ -1,0 +1,28 @@
+.card,
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  gap: 1.25rem;
+}
+
+.form {
+  gap: 1rem;
+}
+
+.spacer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gray-400);
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--gray-300);
+  }
+}

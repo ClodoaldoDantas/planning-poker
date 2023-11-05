@@ -6,6 +6,11 @@
   font-weight: 500;
   color: var(--white);
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
   transition: all 0.2s;
 
   &.primary {
@@ -21,6 +26,14 @@
 
     &:hover {
       background-color: var(--red-700);
+    }
+  }
+
+  &.success {
+    background-color: var(--green-600);
+
+    &:hover {
+      background-color: var(--green-700);
     }
   }
 }

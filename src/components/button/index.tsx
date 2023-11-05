@@ -3,11 +3,15 @@ import styles from './styles.module.scss'
 import classNames from 'classnames'
 
 type ButtonProps = ComponentProps<'button'> & {
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'success'
 }
 
 export function Button({ variant = 'primary', ...props }: ButtonProps) {
   return (
-    <button className={classNames(styles.button, styles[variant])} {...props} />
+    <button
+      type="button"
+      className={classNames(styles.button, styles[variant])}
+      {...props}
+    />
   )
 }
