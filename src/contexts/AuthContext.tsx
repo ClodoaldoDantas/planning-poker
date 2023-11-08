@@ -1,5 +1,6 @@
 'use client'
 
+import { Loading } from '@/components/loading'
 import { auth, provider } from '@/lib/firebase'
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 import {
@@ -27,6 +28,7 @@ const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -44,6 +46,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           avatar: photoURL,
         })
       }
+
+      setIsLoading(false)
     })
 
     return () => {
@@ -79,6 +83,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (err: any) {
       console.log(err.message)
     }
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return (
