@@ -10,7 +10,11 @@ interface AvatarProps {
 
 export function Avatar(props: AvatarProps) {
   const altArray = props.alt.split(' ').slice(0, 2)
-  const altInitials = altArray.map((word) => word.charAt(0)).join('')
+
+  const altInitials = altArray
+    .map((word) => word.charAt(0))
+    .join('')
+    .toUpperCase()
 
   return (
     <RadixAvatar.Root className={styles.avatarRoot}>
