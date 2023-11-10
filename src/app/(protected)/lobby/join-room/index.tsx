@@ -10,22 +10,22 @@ import { Input } from '@/components/input'
 
 import styles from './styles.module.scss'
 
-const joinChannelSchema = z.object({
+const joinRoomSchema = z.object({
   code: z.string().min(1, 'O código do canal não pode ser vazio'),
 })
 
-type JoinChannelFormData = z.infer<typeof joinChannelSchema>
+type JoinRoomFormData = z.infer<typeof joinRoomSchema>
 
-export function JoinChannel() {
+export function JoinRoom() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<JoinChannelFormData>({
-    resolver: zodResolver(joinChannelSchema),
+  } = useForm<JoinRoomFormData>({
+    resolver: zodResolver(joinRoomSchema),
   })
 
-  function handleJoinChannel({ code }: JoinChannelFormData) {
+  function handleJoinRoom({ code }: JoinRoomFormData) {
     console.log({ code })
   }
 
@@ -33,7 +33,7 @@ export function JoinChannel() {
     <>
       <div className={styles.spacer}>ou entre em um canal</div>
 
-      <form onSubmit={handleSubmit(handleJoinChannel)} className={styles.form}>
+      <form onSubmit={handleSubmit(handleJoinRoom)} className={styles.form}>
         <Input
           type="text"
           placeholder="Digite o código do canal"
@@ -43,7 +43,7 @@ export function JoinChannel() {
 
         <Button type="submit">
           <LogIn size={24} />
-          Entrar no canal
+          Entrar na sala
         </Button>
       </form>
     </>

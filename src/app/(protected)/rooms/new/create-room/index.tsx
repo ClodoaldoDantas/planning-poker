@@ -10,40 +10,37 @@ import { Input } from '@/components/input'
 
 import styles from './styles.module.scss'
 
-const createChannelSchema = z.object({
+const createRoomSchema = z.object({
   name: z.string().min(1, 'O nome do canal não pode ser vazio'),
 })
 
-type CreateChannelFormData = z.infer<typeof createChannelSchema>
+type CreateRoomFormData = z.infer<typeof createRoomSchema>
 
-export function CreateChannel() {
+export function CreateRoom() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateChannelFormData>({
-    resolver: zodResolver(createChannelSchema),
+  } = useForm<CreateRoomFormData>({
+    resolver: zodResolver(createRoomSchema),
   })
 
-  function handleCreateNewChannel({ name }: CreateChannelFormData) {
+  function handleCreateNewRoom({ name }: CreateRoomFormData) {
     console.log({ name })
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(handleCreateNewChannel)}
-      className={styles.form}
-    >
+    <form onSubmit={handleSubmit(handleCreateNewRoom)} className={styles.form}>
       <Input
         type="text"
-        placeholder="Digite o nome do canal"
+        placeholder="Digite o nome da sala"
         error={errors.name?.message}
         {...register('name')}
       />
 
       <Button type="submit" variant="success">
         <PlusCircle size={24} />
-        Criar novo canal
+        Criar nova sala
       </Button>
     </form>
   )

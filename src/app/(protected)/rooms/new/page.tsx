@@ -1,12 +1,12 @@
 import { Center } from '@/components/center'
 import { Header } from '@/components/header'
-import { CreateChannel } from './create-channel'
+import { CreateRoom } from './create-room'
 import { BackButton } from '@/components/back-button'
 import { Profile } from '@/components/profile'
 
 import styles from './page.module.scss'
 
-export default function NewChannelPage() {
+export default function NewRoomPage() {
   return (
     <Center>
       <section className={styles.newChannelPage}>
@@ -16,7 +16,7 @@ export default function NewChannelPage() {
           <Profile />
         </Header>
 
-        <CreateChannel />
+        <CreateRoom />
       </section>
     </Center>
   )

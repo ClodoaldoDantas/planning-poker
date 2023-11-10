@@ -3,8 +3,8 @@ import { Center } from '@/components/center'
 import { Header } from '@/components/header'
 import { Link } from '@/components/link'
 import { Profile } from '@/components/profile'
+import { JoinRoom } from './join-room'
 
-import { JoinChannel } from './join-channel'
 import styles from './page.module.scss'
 
 export default function LobbyPage() {
@@ -17,13 +17,13 @@ export default function LobbyPage() {
 
         <div className={styles.card}>
           <div className={styles.cardActions}>
-            <Link href="/channels/new" variant="success">
+            <Link href="/rooms/new" variant="success">
               <Bot size={24} />
-              Criar um novo canal
+              Criar um nova sala
             </Link>
           </div>
 
-          <JoinChannel />
+          <JoinRoom />
         </div>
       </section>
     </Center>
