@@ -2,19 +2,18 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { PlusCircle } from 'lucide-react'
 import { doc, getDoc } from 'firebase/firestore'
 
 import { db } from '@/lib/firebase'
-import { Button } from '@/components/button'
-import { TaskList } from '../task-list'
+import { TaskList } from './task-list'
+import { AddTask } from './add-task'
 
 import styles from './styles.module.scss'
 
 type Room = {
   id: string
   name: string
-  tasks: any[]
+  authorId: string
 }
 
 type PlanningProps = {
@@ -32,8 +31,13 @@ export function Planning({ roomId }: PlanningProps) {
       const docSnap = await getDoc(docRef)
 
       if (docSnap.exists()) {
-        const { name, tasks } = docSnap.data()
-        setRoom({ id: roomId, name, tasks })
+        const { name, authorId } = docSnap.data()
+
+        setRoom({
+          id: roomId,
+          name,
+          authorId,
+        })
       } else {
         router.replace('/lobby?error=not-found')
       }
@@ -50,13 +54,10 @@ export function Planning({ roomId }: PlanningProps) {
     <>
       <div className={styles.roomHeader}>
         <h2 className={styles.roomHeaderTitle}>{room.name}</h2>
-
-        <Button variant="success">
-          <PlusCircle size={24} /> Adicionar Tarefa
-        </Button>
+        <AddTask roomId={roomId} />
       </div>
 
-      <TaskList />
+      <TaskList roomId={roomId} />
     </>
   )
 }

@@ -36,7 +36,6 @@ export function CreateRoom() {
   async function handleCreateNewRoom({ name }: CreateRoomFormData) {
     const docRef = await addDoc(collection(db, 'rooms'), {
       name,
-      tasks: [],
       authorId: user?.id,
     })
 
