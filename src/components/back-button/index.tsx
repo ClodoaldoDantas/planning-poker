@@ -1,19 +1,16 @@
-import { ReactNode } from 'react'
-import { ChevronLeft } from 'lucide-react'
-import Link from 'next/link'
+'use client'
 
+import { ChevronLeft } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import styles from './styles.module.scss'
 
-type BackButtonProps = {
-  href: string
-  children: ReactNode
-}
+export function BackButton() {
+  const router = useRouter()
 
-export function BackButton(props: BackButtonProps) {
   return (
-    <Link className={styles.backButton} href={props.href}>
+    <button onClick={() => router.back()} className={styles.backButton}>
       <ChevronLeft size={20} />
-      {props.children}
-    </Link>
+      Voltar para a tela anterior
+    </button>
   )
 }

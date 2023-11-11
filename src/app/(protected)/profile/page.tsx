@@ -11,7 +11,7 @@ export default function ProfilePage() {
   return (
     <Center>
       <section className={styles.profilePage}>
-        <BackButton href="/lobby">Voltar para o lobby</BackButton>
+        <BackButton />
 
         <ProfileHeader />
 

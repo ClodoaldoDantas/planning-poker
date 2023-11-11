@@ -10,7 +10,7 @@ export default function NewRoomPage() {
   return (
     <Center>
       <section className={styles.newChannelPage}>
-        <BackButton href="/lobby">Voltar para o lobby</BackButton>
+        <BackButton />
 
         <Header>
           <Profile />
