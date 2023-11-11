@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Sora } from 'next/font/google'
+
 import './globals.scss'
+
 import { AuthProvider } from '@/contexts/AuthContext'
 
 const sora = Sora({

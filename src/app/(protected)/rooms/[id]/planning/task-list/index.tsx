@@ -1,6 +1,8 @@
 'use client'
 
 import Image from 'next/image'
+import Skeleton from 'react-loading-skeleton'
+
 import { useEffect, useState } from 'react'
 import { ClipboardCheck } from 'lucide-react'
 
@@ -39,7 +41,6 @@ export function TaskList({ roomId }: TaskListProps) {
           title: doc.data().title,
           votes: doc.data().votes,
           completed: doc.data().completed,
-          created_at: doc.data().created_at.toDate(),
         } as Task)
       })
 
@@ -53,11 +54,15 @@ export function TaskList({ roomId }: TaskListProps) {
   }, [roomId])
 
   if (isLoading) {
-    return null
+    return (
+      <div className={styles.wrapper}>
+        <Skeleton height={360} width={800} />
+      </div>
+    )
   }
 
   return (
-    <div className={styles.grid}>
+    <div className={`${styles.wrapper} ${styles.grid}`}>
       {tasks.length === 0 && (
         <div className={styles.emptyCard}>
           <Image src={emptyImage} alt="" />

@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { doc, getDoc } from 'firebase/firestore'
 
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 import { db } from '@/lib/firebase'
 import { TaskList } from './task-list'
 import { AddTask } from './add-task'
@@ -46,18 +49,21 @@ export function Planning({ roomId }: PlanningProps) {
     fetchRoom()
   }, [roomId, router])
 
-  if (!room) {
-    return null
-  }
-
   return (
     <>
-      <div className={styles.roomHeader}>
-        <h2 className={styles.roomHeaderTitle}>{room.name}</h2>
-        <AddTask roomId={roomId} />
-      </div>
+      {room ? (
+        <div className={styles.roomHeader}>
+          <h2 className={styles.roomHeaderTitle}>{room?.name}</h2>
+          <AddTask roomId={roomId} />
+        </div>
+      ) : (
+        <div className={styles.roomHeader}>
+          <Skeleton height={48} width={200} />
+          <Skeleton height={48} width={200} />
+        </div>
+      )}
 
-      <TaskList roomId={roomId} />
+      {room && <TaskList roomId={roomId} />}
     </>
   )
 }

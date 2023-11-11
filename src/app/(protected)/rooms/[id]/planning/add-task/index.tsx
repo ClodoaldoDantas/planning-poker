@@ -4,15 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import {
-  addDoc,
-  arrayUnion,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore'
+import { addDoc, collection, doc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 
 import { PlusCircle, X } from 'lucide-react'
@@ -52,7 +44,6 @@ export function AddTask({ roomId }: AddTaskProps) {
       title,
       votes: [],
       completed: false,
-      created_at: serverTimestamp(),
     })
 
     setOpen(false)
