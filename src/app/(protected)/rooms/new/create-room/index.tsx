@@ -5,10 +5,14 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '@/lib/firebase'
+
 import { Button } from '@/components/button'
 import { Input } from '@/components/input'
 
 import styles from './styles.module.scss'
+import { useRouter } from 'next/navigation'
 
 const createRoomSchema = z.object({
   name: z.string().min(1, 'O nome do canal não pode ser vazio'),
@@ -20,13 +24,16 @@ export function CreateRoom() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<CreateRoomFormData>({
     resolver: zodResolver(createRoomSchema),
   })
 
-  function handleCreateNewRoom({ name }: CreateRoomFormData) {
-    console.log({ name })
+  const router = useRouter()
+
+  async function handleCreateNewRoom({ name }: CreateRoomFormData) {
+    const docRef = await addDoc(collection(db, 'rooms'), { name })
+    router.push(`/rooms/${docRef.id}`)
   }
 
   return (
@@ -38,7 +45,7 @@ export function CreateRoom() {
         {...register('name')}
       />
 
-      <Button type="submit" variant="success">
+      <Button type="submit" variant="success" disabled={isSubmitting}>
         <PlusCircle size={24} />
         Criar nova sala
       </Button>
