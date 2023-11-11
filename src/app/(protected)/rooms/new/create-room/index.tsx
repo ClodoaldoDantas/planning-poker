@@ -13,6 +13,7 @@ import { Button } from '@/components/button'
 import { Input } from '@/components/input'
 
 import styles from './styles.module.scss'
+import { useAuth } from '@/contexts/AuthContext'
 
 const createRoomSchema = z.object({
   name: z.string().min(1, 'O nome do canal não pode ser vazio'),
@@ -30,9 +31,15 @@ export function CreateRoom() {
   })
 
   const router = useRouter()
+  const { user } = useAuth()
 
   async function handleCreateNewRoom({ name }: CreateRoomFormData) {
-    const docRef = await addDoc(collection(db, 'rooms'), { name, tasks: [] })
+    const docRef = await addDoc(collection(db, 'rooms'), {
+      name,
+      tasks: [],
+      authorId: user?.id,
+    })
+
     router.push(`/rooms/${docRef.id}`)
   }
 
