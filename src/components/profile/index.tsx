@@ -4,7 +4,11 @@ import Link from 'next/link'
 import { Avatar } from '../avatar'
 import { useAuth } from '@/contexts/AuthContext'
 
-export function Profile() {
+interface ProfileProps {
+  size?: 'md' | 'sm'
+}
+
+export function Profile({ size = 'md' }: ProfileProps) {
   const { user } = useAuth()
 
   if (!user) {
@@ -13,7 +17,7 @@ export function Profile() {
 
   return (
     <Link href="/profile">
-      <Avatar src={user.avatar} alt={user.name} />
+      <Avatar src={user.avatar} alt={user.name} size={size} />
     </Link>
   )
 }

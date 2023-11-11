@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { Sora } from 'next/font/google'
 import './globals.scss'
 import { AuthProvider } from '@/contexts/AuthContext'
 
-const poppins = Poppins({
+const sora = Sora({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
 })
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={poppins.className}>
+      <body className={sora.className}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

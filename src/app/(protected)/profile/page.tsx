@@ -18,7 +18,7 @@ export default function ProfilePage() {
         <nav className={styles.profilePageMenu}>
           <Link href="/profile">
             <Tv2 size={20} />
-            <span>Acessar meus canais</span>
+            <span>Acessar minhas salas</span>
             <ChevronRight className={styles.arrow} size={20} />
           </Link>
 

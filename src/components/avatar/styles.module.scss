@@ -5,9 +5,17 @@
   vertical-align: middle;
   overflow: hidden;
   user-select: none;
-  width: 56px;
-  height: 56px;
   border-radius: 100%;
+
+  &.small {
+    width: 48px;
+    height: 48px;
+  }
+
+  &.medium {
+    width: 56px;
+    height: 56px;
+  }
 }
 
 .avatarImage {
