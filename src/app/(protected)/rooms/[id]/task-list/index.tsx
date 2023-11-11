@@ -7,7 +7,7 @@ import { ClipboardCheck } from 'lucide-react'
 
 import styles from './styles.module.scss'
 
-export function StoryList() {
+export function TaskList() {
   return (
     <div className={styles.grid}>
       {/* <div className={styles.emptyCard}>
@@ -15,23 +15,23 @@ export function StoryList() {
         <p>Nenhuma tarefa encontrada</p>
       </div> */}
 
-      <section className={styles.card}>
+      {/* <section className={styles.card}>
         <header className={styles.cardHeader}>
           <div>
             <ClipboardCheck size={24} />
             <h3>Criar nova landing page</h3>
           </div>
         </header>
-      </section>
+      </section> */}
 
-      <section className={styles.card}>
+      {/* <section className={styles.card}>
         <header className={styles.cardHeader}>
           <div>
             <ClipboardCheck size={24} />
             <h3>Criar uma nova seção de conteúdo</h3>
           </div>
         </header>
-      </section>
+      </section> */}
     </div>
   )
 }

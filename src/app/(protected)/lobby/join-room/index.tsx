@@ -1,7 +1,7 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { LogIn } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { AlertCircle, LogIn } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -27,6 +27,9 @@ export function JoinRoom() {
   })
 
   const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const hasError = searchParams.get('error')
 
   function handleJoinRoom({ code }: JoinRoomFormData) {
     router.push(`/rooms/${code}`)
@@ -35,6 +38,16 @@ export function JoinRoom() {
   return (
     <>
       <div className={styles.spacer}>ou entre em um canal</div>
+
+      {hasError && (
+        <div className={styles.alert}>
+          <AlertCircle size={20} />
+          <span>
+            Sala não encontrada. Verifique se o código está correto e tente
+            novamente!
+          </span>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit(handleJoinRoom)} className={styles.form}>
         <Input

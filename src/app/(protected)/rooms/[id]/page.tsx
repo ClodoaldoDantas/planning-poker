@@ -1,13 +1,11 @@
-import { PlusCircle } from 'lucide-react'
-
 import { Logo } from '@/components/logo'
 import { Profile } from '@/components/profile'
 import { Container } from '@/components/container'
-import { Button } from '@/components/button'
-import { StoryList } from './story-list'
+import { TaskList } from './task-list'
 
-import styles from './page.module.scss'
 import { CopyRoomButton } from './copy-room-button'
+import { RoomHeader } from './room-header'
+import styles from './page.module.scss'
 
 export default function RoomPage({ params }: { params: { id: string } }) {
   return (
@@ -25,15 +23,8 @@ export default function RoomPage({ params }: { params: { id: string } }) {
 
       <main className={styles.main}>
         <Container>
-          <div className={styles.pageHeader}>
-            <h2 className={styles.title}>Ohio Planning</h2>
-
-            <Button variant="success">
-              <PlusCircle size={24} /> Adicionar Tarefa
-            </Button>
-          </div>
-
-          <StoryList />
+          <RoomHeader roomId={params.id} />
+          <TaskList />
         </Container>
       </main>
     </>
