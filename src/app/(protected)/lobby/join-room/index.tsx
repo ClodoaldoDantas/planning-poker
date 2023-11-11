@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { LogIn } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,8 +26,10 @@ export function JoinRoom() {
     resolver: zodResolver(joinRoomSchema),
   })
 
+  const router = useRouter()
+
   function handleJoinRoom({ code }: JoinRoomFormData) {
-    console.log({ code })
+    router.push(`/rooms/${code}`)
   }
 
   return (
