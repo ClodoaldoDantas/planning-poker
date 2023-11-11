@@ -1,0 +1,35 @@
+.copyButton {
+  display: flex;
+  align-items: stretch;
+
+  height: 2.5rem;
+  background-color: transparent;
+  border: 1px solid var(--blue-600);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.copyButtonIcon {
+  width: 2.75rem;
+  background-color: var(--blue-600);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    color: var(--white);
+  }
+}
+
+.copyButtonText {
+  padding: 0 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-weight: 500;
+  }
+}

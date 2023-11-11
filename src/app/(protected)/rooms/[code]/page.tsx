@@ -7,6 +7,7 @@ import { Button } from '@/components/button'
 import { StoryList } from './story-list'
 
 import styles from './page.module.scss'
+import { CopyRoomButton } from './copy-room-button'
 
 export default function RoomPage({ params }: { params: { code: string } }) {
   return (
@@ -14,7 +15,11 @@ export default function RoomPage({ params }: { params: { code: string } }) {
       <header className={styles.header}>
         <Container>
           <Logo size="sm" />
-          <Profile size="sm" />
+
+          <div className={styles.headerActions}>
+            <CopyRoomButton code={params.code} />
+            <Profile size="sm" />
+          </div>
         </Container>
       </header>
 
