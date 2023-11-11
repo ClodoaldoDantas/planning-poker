@@ -4,21 +4,24 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { PlusCircle } from 'lucide-react'
 import { doc, getDoc } from 'firebase/firestore'
-import { db } from '@/lib/firebase'
 
+import { db } from '@/lib/firebase'
 import { Button } from '@/components/button'
+import { TaskList } from '../task-list'
+
 import styles from './styles.module.scss'
 
 type Room = {
   id: string
   name: string
+  tasks: any[]
 }
 
-type RoomHeaderProps = {
+type PlanningProps = {
   roomId: string
 }
 
-export function RoomHeader({ roomId }: RoomHeaderProps) {
+export function Planning({ roomId }: PlanningProps) {
   const [room, setRoom] = useState<Room | null>(null)
 
   const router = useRouter()
@@ -29,8 +32,8 @@ export function RoomHeader({ roomId }: RoomHeaderProps) {
       const docSnap = await getDoc(docRef)
 
       if (docSnap.exists()) {
-        const data = docSnap.data()
-        setRoom({ name: data.name, id: roomId })
+        const { name, tasks } = docSnap.data()
+        setRoom({ id: roomId, name, tasks })
       } else {
         router.replace('/lobby?error=not-found')
       }
@@ -44,12 +47,16 @@ export function RoomHeader({ roomId }: RoomHeaderProps) {
   }
 
   return (
-    <div className={styles.roomHeader}>
-      <h2 className={styles.roomHeaderTitle}>{room.name}</h2>
+    <>
+      <div className={styles.roomHeader}>
+        <h2 className={styles.roomHeaderTitle}>{room.name}</h2>
 
-      <Button variant="success">
-        <PlusCircle size={24} /> Adicionar Tarefa
-      </Button>
-    </div>
+        <Button variant="success">
+          <PlusCircle size={24} /> Adicionar Tarefa
+        </Button>
+      </div>
+
+      <TaskList />
+    </>
   )
 }

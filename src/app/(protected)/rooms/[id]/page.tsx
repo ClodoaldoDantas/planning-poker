@@ -1,10 +1,9 @@
 import { Logo } from '@/components/logo'
 import { Profile } from '@/components/profile'
 import { Container } from '@/components/container'
-import { TaskList } from './task-list'
 
 import { CopyRoomButton } from './copy-room-button'
-import { RoomHeader } from './room-header'
+import { Planning } from './planning'
 import styles from './page.module.scss'
 
 export default function RoomPage({ params }: { params: { id: string } }) {
@@ -23,8 +22,7 @@ export default function RoomPage({ params }: { params: { id: string } }) {
 
       <main className={styles.main}>
         <Container>
-          <RoomHeader roomId={params.id} />
-          <TaskList />
+          <Planning roomId={params.id} />
         </Container>
       </main>
     </>

@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { PlusCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,7 +13,6 @@ import { Button } from '@/components/button'
 import { Input } from '@/components/input'
 
 import styles from './styles.module.scss'
-import { useRouter } from 'next/navigation'
 
 const createRoomSchema = z.object({
   name: z.string().min(1, 'O nome do canal não pode ser vazio'),
@@ -32,7 +32,7 @@ export function CreateRoom() {
   const router = useRouter()
 
   async function handleCreateNewRoom({ name }: CreateRoomFormData) {
-    const docRef = await addDoc(collection(db, 'rooms'), { name })
+    const docRef = await addDoc(collection(db, 'rooms'), { name, tasks: [] })
     router.push(`/rooms/${docRef.id}`)
   }
 

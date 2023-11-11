@@ -1,19 +1,19 @@
 'use client'
 
-import { ClipboardCheck } from 'lucide-react'
+// import { ClipboardCheck } from 'lucide-react'
 
-// import Image from 'next/image'
-// import emptyImage from '@/assets/empty.svg'
+import Image from 'next/image'
+import emptyImage from '@/assets/empty.svg'
 
 import styles from './styles.module.scss'
 
 export function TaskList() {
   return (
     <div className={styles.grid}>
-      {/* <div className={styles.emptyCard}>
+      <div className={styles.emptyCard}>
         <Image src={emptyImage} alt="" />
         <p>Nenhuma tarefa encontrada</p>
-      </div> */}
+      </div>
 
       {/* <section className={styles.card}>
         <header className={styles.cardHeader}>
