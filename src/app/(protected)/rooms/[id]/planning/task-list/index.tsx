@@ -15,6 +15,7 @@ import styles from './styles.module.scss'
 type Task = {
   id: string
   title: string
+  description: string
   votes: any
   completed: boolean
   created_at: Date
@@ -39,6 +40,7 @@ export function TaskList({ roomId }: TaskListProps) {
         tasks.push({
           id: doc.id,
           title: doc.data().title,
+          description: doc.data().description,
           votes: doc.data().votes,
           completed: doc.data().completed,
         } as Task)
@@ -78,6 +80,10 @@ export function TaskList({ roomId }: TaskListProps) {
               <h3>{task.title}</h3>
             </div>
           </header>
+
+          <div className={styles.cardBody}>
+            <p>{task.description}</p>
+          </div>
         </section>
       ))}
     </div>

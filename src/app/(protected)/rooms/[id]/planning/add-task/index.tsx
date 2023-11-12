@@ -12,9 +12,11 @@ import { Button } from '@/components/button'
 import { Input } from '@/components/input'
 
 import styles from './styles.module.scss'
+import { Textarea } from '@/components/textarea'
 
 const addTaskSchema = z.object({
   title: z.string().min(1, 'O título da tarefa não pode ser vazio'),
+  description: z.string(),
 })
 
 type AddTaskFormData = z.infer<typeof addTaskSchema>
@@ -35,13 +37,14 @@ export function AddTask({ roomId }: AddTaskProps) {
     resolver: zodResolver(addTaskSchema),
   })
 
-  async function handleCreateTask({ title }: AddTaskFormData) {
+  async function handleCreateTask({ title, description }: AddTaskFormData) {
     const roomRef = doc(db, 'rooms', roomId)
 
     const tasksCollection = collection(roomRef, 'tasks')
 
     await addDoc(tasksCollection, {
       title,
+      description,
       votes: [],
       completed: false,
     })
@@ -69,9 +72,14 @@ export function AddTask({ roomId }: AddTaskProps) {
           >
             <Input
               type="text"
-              placeholder="Título da tarefa"
+              placeholder="Título"
               error={errors.title?.message}
               {...register('title')}
+            />
+
+            <Textarea
+              placeholder="Descrição (opcional)"
+              {...register('description')}
             />
 
             <Button variant="success" type="submit">
