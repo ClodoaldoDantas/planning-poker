@@ -12,14 +12,14 @@ import { Task } from '@/types/task'
 
 import emptyImage from '@/assets/empty.svg'
 import styles from './styles.module.scss'
+import { useRoom } from '@/contexts/RoomContext'
 
-type TaskListProps = {
-  roomId: string
-}
-
-export function TaskList({ roomId }: TaskListProps) {
+export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [isLoading, setIsLoading] = useState(true)
+
+  const { room } = useRoom()
+  const roomId = room!.id
 
   useEffect(() => {
     const roomRef = doc(db, 'rooms', roomId)

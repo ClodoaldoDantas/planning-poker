@@ -5,6 +5,7 @@ import { Container } from '@/components/container'
 import { CopyRoomButton } from './copy-room-button'
 import { Planning } from './planning'
 import styles from './page.module.scss'
+import { RoomProvider } from '@/contexts/RoomContext'
 
 export default function RoomPage({ params }: { params: { id: string } }) {
   return (
@@ -22,7 +23,9 @@ export default function RoomPage({ params }: { params: { id: string } }) {
 
       <main className={styles.main}>
         <Container>
-          <Planning roomId={params.id} />
+          <RoomProvider roomId={params.id}>
+            <Planning />
+          </RoomProvider>
         </Container>
       </main>
     </>

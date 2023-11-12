@@ -13,6 +13,7 @@ import { Input } from '@/components/input'
 
 import styles from './styles.module.scss'
 import { Textarea } from '@/components/textarea'
+import { useRoom } from '@/contexts/RoomContext'
 
 const addTaskSchema = z.object({
   title: z.string().min(1, 'O título da tarefa não pode ser vazio'),
@@ -21,12 +22,9 @@ const addTaskSchema = z.object({
 
 type AddTaskFormData = z.infer<typeof addTaskSchema>
 
-type AddTaskProps = {
-  roomId: string
-}
-
-export function AddTask({ roomId }: AddTaskProps) {
+export function AddTask() {
   const [open, setOpen] = useState(false)
+  const { room } = useRoom()
 
   const {
     register,
@@ -38,7 +36,7 @@ export function AddTask({ roomId }: AddTaskProps) {
   })
 
   async function handleCreateTask({ title, description }: AddTaskFormData) {
-    const roomRef = doc(db, 'rooms', roomId)
+    const roomRef = doc(db, 'rooms', room!.id)
 
     const tasksCollection = collection(roomRef, 'tasks')
 
