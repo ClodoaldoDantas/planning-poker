@@ -36,15 +36,13 @@ export function AddTask() {
   })
 
   async function handleCreateTask({ title, description }: AddTaskFormData) {
-    const roomRef = doc(db, 'rooms', room!.id)
+    const tasksCollectionRef = collection(db, 'tasks')
 
-    const tasksCollection = collection(roomRef, 'tasks')
-
-    await addDoc(tasksCollection, {
+    await addDoc(tasksCollectionRef, {
       title,
       description,
-      votes: [],
       completed: false,
+      roomId: room?.id,
     })
 
     setOpen(false)

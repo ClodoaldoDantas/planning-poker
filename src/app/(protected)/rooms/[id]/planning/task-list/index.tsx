@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Skeleton from 'react-loading-skeleton'
 
 import { useEffect, useState } from 'react'
-import { collection, doc, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 
 import { TaskItem } from '../task-item'
@@ -22,10 +22,10 @@ export function TaskList() {
   const roomId = room!.id
 
   useEffect(() => {
-    const roomRef = doc(db, 'rooms', roomId)
-    const tasksCollection = collection(roomRef, 'tasks')
+    const tasksCollectionRef = collection(db, 'tasks')
+    const q = query(tasksCollectionRef, where('roomId', '==', roomId))
 
-    const unsubscribe = onSnapshot(tasksCollection, (querySnapshot) => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const tasks: Task[] = []
 
       querySnapshot.forEach((doc) => {

@@ -5,9 +5,9 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 import { TaskList } from './task-list'
 import { AddTask } from './add-task'
+import { useRoom } from '@/contexts/RoomContext'
 
 import styles from './styles.module.scss'
-import { useRoom } from '@/contexts/RoomContext'
 
 export function Planning() {
   const { room } = useRoom()

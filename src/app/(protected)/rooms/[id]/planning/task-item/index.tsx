@@ -1,16 +1,16 @@
+import classNames from 'classnames'
+import { useState } from 'react'
 import { ClipboardCheck } from 'lucide-react'
 import { Task } from '@/types/task'
 
 import styles from './styles.module.scss'
-import { useState } from 'react'
-import classNames from 'classnames'
 
 const tShirts = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '?', '☕']
 
 export function TaskItem({ task }: { task: Task }) {
   const [activeCard, setActiveCard] = useState<string | null>(null)
 
-  function handleSelectCard(card: string) {
+  async function handleSelectCard(card: string) {
     if (card === activeCard) {
       setActiveCard(null)
     } else {
