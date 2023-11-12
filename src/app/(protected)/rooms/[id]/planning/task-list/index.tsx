@@ -4,22 +4,14 @@ import Image from 'next/image'
 import Skeleton from 'react-loading-skeleton'
 
 import { useEffect, useState } from 'react'
-import { ClipboardCheck } from 'lucide-react'
-
 import { collection, doc, onSnapshot } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 
+import { TaskItem } from '../task-item'
+import { Task } from '@/types/task'
+
 import emptyImage from '@/assets/empty.svg'
 import styles from './styles.module.scss'
-
-type Task = {
-  id: string
-  title: string
-  description: string
-  votes: any
-  completed: boolean
-  created_at: Date
-}
 
 type TaskListProps = {
   roomId: string
@@ -73,18 +65,7 @@ export function TaskList({ roomId }: TaskListProps) {
       )}
 
       {tasks.map((task) => (
-        <section key={task.id} className={styles.card}>
-          <header className={styles.cardHeader}>
-            <div>
-              <ClipboardCheck size={24} />
-              <h3>{task.title}</h3>
-            </div>
-          </header>
-
-          <div className={styles.cardBody}>
-            <p>{task.description}</p>
-          </div>
-        </section>
+        <TaskItem key={task.id} task={task} />
       ))}
     </div>
   )
