@@ -30,3 +30,38 @@
 .cardBody {
   padding: 1rem;
 }
+
+.cardList {
+  margin-top: 2rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cardListItem {
+  button {
+    border-radius: 0.8rem;
+    border: 2px solid var(--blue-500);
+    color: var(--blue-500);
+    background-color: transparent;
+
+    font-size: 1.125rem;
+    font-weight: 600;
+    height: 5rem;
+    width: 3rem;
+
+    transition: all 0.09s linear;
+
+    &:not(.active):hover {
+      background-color: var(--blue-50);
+      margin-top: -0.25rem;
+    }
+
+    &.active {
+      margin-top: -0.25rem;
+      background-color: var(--blue-500);
+      color: var(--white);
+    }
+  }
+}
