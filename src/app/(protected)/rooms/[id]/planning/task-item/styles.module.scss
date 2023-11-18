@@ -65,3 +65,17 @@
     }
   }
 }
+
+.votes {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  margin-top: 2rem;
+
+  span {
+    text-transform: capitalize;
+    font-weight: 500;
+    color: var(--gray-800);
+  }
+}

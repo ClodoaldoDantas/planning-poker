@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ClipboardCheck } from 'lucide-react'
 import { Task } from '@/types/task'
 
@@ -9,18 +9,29 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  onSnapshot,
   query,
   where,
 } from 'firebase/firestore'
+
 import { db } from '@/lib/firebase'
 import { useAuth } from '@/contexts/AuthContext'
 
 import styles from './styles.module.scss'
 
+type Vote = {
+  id: string
+  value: string
+  userName: string
+  userId: string
+}
+
 const tShirts = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '?', '☕']
 
 export function TaskItem({ task }: { task: Task }) {
   const [activeCard, setActiveCard] = useState<string | null>(null)
+  const [votes, setVotes] = useState<Vote[]>([])
+
   const { user } = useAuth()
 
   async function addVote(card: string) {
@@ -65,6 +76,38 @@ export function TaskItem({ task }: { task: Task }) {
     }
   }
 
+  useEffect(() => {
+    const taskRef = doc(db, 'tasks', task.id)
+    const votesSubCollection = collection(taskRef, 'votes')
+
+    const unsubscribe = onSnapshot(votesSubCollection, (querySnapshot) => {
+      const votes: Vote[] = []
+
+      querySnapshot.forEach((doc) => {
+        const vote = {
+          id: doc.id,
+          value: doc.data().value,
+          userName: doc.data().userName,
+          userId: doc.data().userId,
+        }
+
+        votes.push(vote)
+      })
+
+      const userHasAlreadyVoted = votes.find((vote) => vote.userId === user?.id)
+
+      if (userHasAlreadyVoted) {
+        setActiveCard(userHasAlreadyVoted.value)
+      }
+
+      setVotes(votes)
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [task.id, user?.id])
+
   return (
     <section key={task.id} className={styles.card}>
       <header className={styles.cardHeader}>
@@ -90,6 +133,12 @@ export function TaskItem({ task }: { task: Task }) {
             </li>
           ))}
         </ul>
+
+        <div className={styles.votes}>
+          {votes.map((vote) => (
+            <span key={vote.id}>{vote.userName}</span>
+          ))}
+        </div>
       </div>
     </section>
   )
