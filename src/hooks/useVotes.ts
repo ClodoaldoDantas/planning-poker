@@ -12,6 +12,7 @@ import {
   query,
   where,
   onSnapshot,
+  updateDoc,
 } from 'firebase/firestore'
 
 export function useVotes(taskId: string) {
@@ -19,12 +20,31 @@ export function useVotes(taskId: string) {
 
   const [votes, setVotes] = useState<Vote[]>([])
 
+  const getVoteByUserId = async (userId?: string) => {
+    const taskRef = doc(db, 'tasks', taskId)
+    const votesCollection = collection(taskRef, 'votes')
+
+    const q = query(votesCollection, where('userId', '==', userId))
+    const querySnapshot = await getDocs(q)
+
+    const vote = querySnapshot.docs[0]
+
+    if (!vote.exists()) {
+      return null
+    }
+
+    return {
+      id: vote.id,
+      collection: votesCollection,
+    }
+  }
+
   const addVote = async (card: string) => {
     try {
       const taskRef = doc(db, 'tasks', taskId)
-      const votesSubCollection = collection(taskRef, 'votes')
+      const votesCollection = collection(taskRef, 'votes')
 
-      addDoc(votesSubCollection, {
+      addDoc(votesCollection, {
         value: card,
         userId: user?.id,
         userName: user?.name,
@@ -36,16 +56,29 @@ export function useVotes(taskId: string) {
 
   const deleteVote = async () => {
     try {
-      const taskRef = doc(db, 'tasks', taskId)
-      const votesSubCollection = collection(taskRef, 'votes')
+      const vote = await getVoteByUserId(user?.id)
 
-      const q = query(votesSubCollection, where('userId', '==', user?.id))
-      const querySnapshot = await getDocs(q)
+      if (!vote) {
+        throw new Error('Vote not found')
+      }
 
-      const vote = querySnapshot.docs[0]
-      if (!vote.exists) return
+      await deleteDoc(doc(vote.collection, vote.id))
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-      await deleteDoc(doc(votesSubCollection, vote.id))
+  const updateVote = async (updatedValue: string) => {
+    try {
+      const vote = await getVoteByUserId(user?.id)
+
+      if (!vote) {
+        throw new Error('Vote not found')
+      }
+
+      await updateDoc(doc(vote.collection, vote.id), {
+        value: updatedValue,
+      })
     } catch (error) {
       console.log(error)
     }
@@ -80,6 +113,7 @@ export function useVotes(taskId: string) {
   return {
     addVote,
     deleteVote,
+    updateVote,
     votes,
   }
 }

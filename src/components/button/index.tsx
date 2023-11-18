@@ -7,11 +7,11 @@ type ButtonProps = ComponentProps<'button'> & {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', ...props }, ref) => (
+  ({ variant = 'primary', className, ...props }, ref) => (
     <button
       ref={ref}
       type="button"
-      className={classNames(styles.button, styles[variant])}
+      className={classNames(styles.button, styles[variant], className)}
       {...props}
     />
   )

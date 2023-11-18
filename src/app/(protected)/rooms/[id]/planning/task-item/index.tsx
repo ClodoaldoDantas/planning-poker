@@ -1,28 +1,36 @@
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
-import { ClipboardCheck } from 'lucide-react'
+import { BarChart4, ClipboardCheck, Users, Users2 } from 'lucide-react'
 import { Task } from '@/types/task'
 
 import { useAuth } from '@/contexts/AuthContext'
 import { useVotes } from '@/hooks/useVotes'
 
 import styles from './styles.module.scss'
+import { Button } from '@/components/button'
 
 const tShirts = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '?', '☕']
 
 export function TaskItem({ task }: { task: Task }) {
   const [activeCard, setActiveCard] = useState<string | null>(null)
 
-  const { votes, addVote, deleteVote } = useVotes(task.id)
+  const { votes, addVote, deleteVote, updateVote } = useVotes(task.id)
   const { user } = useAuth()
 
   async function handleSelectCard(card: string) {
+    if (activeCard === null) {
+      setActiveCard(card)
+      await addVote(card)
+    }
+
     if (card === activeCard) {
       setActiveCard(null)
       await deleteVote()
-    } else {
+    }
+
+    if (card !== activeCard) {
       setActiveCard(card)
-      await addVote(card)
+      await updateVote(card)
     }
   }
 
@@ -60,9 +68,19 @@ export function TaskItem({ task }: { task: Task }) {
           ))}
         </ul>
 
-        <div className={styles.votes}>
-          <span>{votes.map((vote) => vote.userName).join(', ')}</span>
-        </div>
+        {votes.length > 0 && (
+          <>
+            <div className={styles.votes}>
+              <Users size={24} />
+              <span>{votes.map((vote) => vote.userName).join(', ')}</span>
+            </div>
+
+            <Button className={styles.showResult} variant="success">
+              <BarChart4 size={20} />
+              Mostrar resultado
+            </Button>
+          </>
+        )}
       </div>
     </section>
   )
