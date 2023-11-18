@@ -3,68 +3,18 @@ import { useEffect, useState } from 'react'
 import { ClipboardCheck } from 'lucide-react'
 import { Task } from '@/types/task'
 
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from 'firebase/firestore'
-
-import { db } from '@/lib/firebase'
 import { useAuth } from '@/contexts/AuthContext'
+import { useVotes } from '@/hooks/useVotes'
 
 import styles from './styles.module.scss'
-
-type Vote = {
-  id: string
-  value: string
-  userName: string
-  userId: string
-}
 
 const tShirts = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '?', '☕']
 
 export function TaskItem({ task }: { task: Task }) {
   const [activeCard, setActiveCard] = useState<string | null>(null)
-  const [votes, setVotes] = useState<Vote[]>([])
 
+  const { votes, addVote, deleteVote } = useVotes(task.id)
   const { user } = useAuth()
-
-  async function addVote(card: string) {
-    try {
-      const taskRef = doc(db, 'tasks', task.id)
-      const votesSubCollection = collection(taskRef, 'votes')
-
-      addDoc(votesSubCollection, {
-        value: card,
-        userId: user?.id,
-        userName: user?.name,
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async function deleteVote() {
-    try {
-      const taskRef = doc(db, 'tasks', task.id)
-      const votesSubCollection = collection(taskRef, 'votes')
-
-      const q = query(votesSubCollection, where('userId', '==', user?.id))
-      const querySnapshot = await getDocs(q)
-
-      const vote = querySnapshot.docs[0]
-      if (!vote.exists) return
-
-      await deleteDoc(doc(votesSubCollection, vote.id))
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   async function handleSelectCard(card: string) {
     if (card === activeCard) {
@@ -77,36 +27,12 @@ export function TaskItem({ task }: { task: Task }) {
   }
 
   useEffect(() => {
-    const taskRef = doc(db, 'tasks', task.id)
-    const votesSubCollection = collection(taskRef, 'votes')
+    const userHasAlreadyVoted = votes.find((vote) => vote.userId === user?.id)
 
-    const unsubscribe = onSnapshot(votesSubCollection, (querySnapshot) => {
-      const votes: Vote[] = []
-
-      querySnapshot.forEach((doc) => {
-        const vote = {
-          id: doc.id,
-          value: doc.data().value,
-          userName: doc.data().userName,
-          userId: doc.data().userId,
-        }
-
-        votes.push(vote)
-      })
-
-      const userHasAlreadyVoted = votes.find((vote) => vote.userId === user?.id)
-
-      if (userHasAlreadyVoted) {
-        setActiveCard(userHasAlreadyVoted.value)
-      }
-
-      setVotes(votes)
-    })
-
-    return () => {
-      unsubscribe()
+    if (userHasAlreadyVoted) {
+      setActiveCard(userHasAlreadyVoted.value)
     }
-  }, [task.id, user?.id])
+  }, [votes, user?.id])
 
   return (
     <section key={task.id} className={styles.card}>
@@ -135,9 +61,7 @@ export function TaskItem({ task }: { task: Task }) {
         </ul>
 
         <div className={styles.votes}>
-          {votes.map((vote) => (
-            <span key={vote.id}>{vote.userName}</span>
-          ))}
+          <span>{votes.map((vote) => vote.userName).join(', ')}</span>
         </div>
       </div>
     </section>

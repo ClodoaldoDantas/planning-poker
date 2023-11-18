@@ -1,19 +1,20 @@
-import { useState } from 'react'
-import * as Dialog from '@radix-ui/react-dialog'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import * as Dialog from '@radix-ui/react-dialog'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { addDoc, collection, doc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import { addDoc, collection } from 'firebase/firestore'
 
-import { PlusCircle, X } from 'lucide-react'
 import { Button } from '@/components/button'
 import { Input } from '@/components/input'
+import { PlusCircle, X } from 'lucide-react'
 
-import styles from './styles.module.scss'
 import { Textarea } from '@/components/textarea'
 import { useRoom } from '@/contexts/RoomContext'
+
+import styles from './styles.module.scss'
 
 const addTaskSchema = z.object({
   title: z.string().min(1, 'O título da tarefa não pode ser vazio'),
