@@ -1,13 +1,13 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
 import { ApexOptions } from 'apexcharts'
+import { RefreshCcw } from 'lucide-react'
 
 import { Vote } from '@/types/vote'
 import { tShirts } from '@/utils/pointing-scale'
 import { Button } from '@/components/button'
 
 import styles from './styles.module.scss'
-import { RefreshCcw } from 'lucide-react'
 
 const options: ApexOptions = {
   chart: {

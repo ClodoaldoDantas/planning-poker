@@ -39,6 +39,8 @@ export function AddTask() {
   async function handleCreateTask({ title, description }: AddTaskFormData) {
     const tasksCollectionRef = collection(db, 'tasks')
 
+    setOpen(false)
+
     await addDoc(tasksCollectionRef, {
       title,
       description,
@@ -46,7 +48,6 @@ export function AddTask() {
       roomId: room?.id,
     })
 
-    setOpen(false)
     reset()
   }
 
