@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { ChevronRight, Home, Tv2 } from 'lucide-react'
+
 import { Center } from '@/components/center'
 import { BackButton } from '@/components/back-button'
 import { SignOutButton } from '@/components/sign-out-button'
-import { ProfileHeader } from './profile-header'
+import { ProfileInfo } from '@/components/profile-info'
 
 import styles from './page.module.scss'
 
@@ -13,7 +14,7 @@ export default function ProfilePage() {
       <section className={styles.profilePage}>
         <BackButton />
 
-        <ProfileHeader />
+        <ProfileInfo />
 
         <nav className={styles.profilePageMenu}>
           <Link href="/lobby">
