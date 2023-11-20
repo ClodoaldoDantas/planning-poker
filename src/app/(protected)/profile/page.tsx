@@ -23,7 +23,7 @@ export default function ProfilePage() {
             <ChevronRight className={styles.arrow} size={20} />
           </Link>
 
-          <Link href="/profile">
+          <Link href="/my-rooms">
             <Tv2 size={20} />
             <span>Acessar minhas salas</span>
             <ChevronRight className={styles.arrow} size={20} />

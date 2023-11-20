@@ -1,0 +1,24 @@
+.grid {
+  display: flex;
+  flex-direction: column;
+
+  .room:not(:last-child) {
+    border-bottom: 1px solid var(--gray-300);
+  }
+}
+
+.spacing {
+  gap: 1rem;
+}
+
+.room {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0;
+
+  a {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}

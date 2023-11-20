@@ -1,7 +1,6 @@
 'use client'
 
 import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 
 import { TaskList } from './task-list'
 import { AddTask } from './add-task'

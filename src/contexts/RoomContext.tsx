@@ -12,12 +12,7 @@ import { useRouter } from 'next/navigation'
 
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
-
-type Room = {
-  id: string
-  name: string
-  authorId: string
-}
+import { Room } from '@/types/room'
 
 type RoomContextData = {
   room: Room | null
