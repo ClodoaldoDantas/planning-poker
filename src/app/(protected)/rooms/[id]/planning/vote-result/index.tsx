@@ -9,6 +9,19 @@ import { Button } from '@/components/button'
 
 import styles from './styles.module.scss'
 
+type VoteResultProps = {
+  votes: Vote[]
+  onRedoVotes: () => void
+}
+
+type VotesByValue = {
+  [key: string]: number
+}
+
+type UserVotes = {
+  [key: string]: string[]
+}
+
 const options: ApexOptions = {
   chart: {
     toolbar: {
@@ -55,28 +68,49 @@ const options: ApexOptions = {
   },
 }
 
-type VoteResultProps = {
-  votes: Vote[]
-  onRedoVotes: () => void
-}
-
 export function VoteResult({ votes, onRedoVotes }: VoteResultProps) {
   const votesByValue = tShirts.reduce((acc, shirt) => {
     const count = votes.filter((vote) => vote.value === shirt).length
     acc[shirt] = count
 
     return acc
-  }, {} as any)
+  }, {} as VotesByValue)
+
+  const userVotes = tShirts.reduce((acc, value) => {
+    const items = votes
+      .filter((vote) => vote.value === value)
+      .map((vote) => vote.userName)
+
+    if (items.length > 0) {
+      acc[value] = [...items]
+    }
+
+    return acc
+  }, {} as UserVotes)
 
   const series = [
     {
       name: 'Número de votos',
-      data: Object.values(votesByValue) as number[],
+      data: Object.values(votesByValue),
     },
   ]
 
   return (
     <div>
+      <div className={styles.userVotes}>
+        {Object.entries(userVotes).map(([key, value]) => (
+          <div className={styles.userVotesItem} key={key}>
+            <span>{key}</span>
+
+            <ul className={styles.userVotesItemList}>
+              {value.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
       <Chart
         type="bar"
         options={options}

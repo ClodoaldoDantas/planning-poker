@@ -2,3 +2,40 @@
   margin-left: 1rem;
   padding: 0.5rem 1.5rem;
 }
+
+.userVotes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.userVotesItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  & > span {
+    border: 2px solid var(--blue-500);
+    color: var(--blue-500);
+
+    width: 2rem;
+    border-radius: 0.4rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.userVotesItemList {
+  display: flex;
+  align-items: center;
+
+  li {
+    text-transform: capitalize;
+
+    & + li::before {
+      content: ', ';
+    }
+  }
+}
