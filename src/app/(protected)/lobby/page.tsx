@@ -1,4 +1,4 @@
-import { Bot } from 'lucide-react'
+import { Bot, Pointer } from 'lucide-react'
 import { Center } from '@/components/center'
 import { Header } from '@/components/header'
 import { Link } from '@/components/link'
@@ -20,6 +20,11 @@ export default function LobbyPage() {
             <Link href="/rooms/new" variant="success">
               <Bot size={24} />
               Criar um nova sala
+            </Link>
+
+            <Link href="/my-rooms" variant="dark">
+              <Pointer size={24} />
+              Acessar minhas salas
             </Link>
           </div>
 
